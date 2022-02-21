@@ -42,12 +42,22 @@ INSTALLED_APPS = [
     #定义完我们自己的应用common的model后，要将其加入settings.py中的INSTALLED_APPS
     'common.apps.CommonConfig',
 ]
+'''
+根据接口文档，添加客户 请求是个Post请求
+POST /网站名/api/mgr/signin  HTTP/1.1
+Content-Type:   application/x-www-form-urlencoded
+注意，缺省创建的项目， Django 会启用一个 CSRF （跨站请求伪造） 安全防护机制。
+在这种情况下， 所有的Post、PUT 类型的 请求都必须在HTTP请求头中携带用于校验的数据。
+为了简单起见，我们先临时取消掉CSRF的 校验机制，等以后有需要再打开。
+要临时取消掉CSRF的 校验机制，非常简单，只需要在 项目的配置文件 bysms/settings.py 中 MIDDLEWARE 配置项里,
+ 注释掉 ‘django.middleware.csrf.CsrfViewMiddleware’ 即可。
+'''
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
