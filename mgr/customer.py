@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 #待会要访问的数据类型是Json类型，所以要引入
+import json
 
 # 导入Customer
 from common.models import Customer
@@ -63,7 +64,7 @@ def listcustomers(request):
     "action":"add_customer",
     "data":{
         "name":"武汉市桥西医院",
-        "phonenumber":"13345679934",
+        "phoneNumber":"13345679934",
         "address":"武汉市桥西医院北路"
     }
 }
@@ -76,7 +77,7 @@ def addcustomer(request):
     # 并且插入到数据库中
     # 返回值 就是对应插入记录的 对象  
     record = Customer.objects.create(name=info['name'] ,
-                            phonenumber=info['phonenumber'] ,
+                            phoneNumber=info['phoneNumber'] ,
                             address=info['address'])
 
 
@@ -103,8 +104,8 @@ def modifycustomer(request):
 
     if 'name' in  newdata:
         customer.name = newdata['name']
-    if 'phonenumber' in  newdata:
-        customer.phonenumber = newdata['phonenumber']
+    if 'phoneNumber' in  newdata:
+        customer.phoneNumber = newdata['phoneNumber']
     if 'address' in  newdata:
         customer.address = newdata['address']
 
