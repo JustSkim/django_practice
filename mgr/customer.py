@@ -17,6 +17,21 @@ path('customers/', 'app.views.add_customer',  method='post'),
 
 
 def dispatcher(request):
+    # 根据session判断用户是否是登录的管理员用户
+    if 'usertype' not in request.session:
+        return JsonResponse({
+            'ret': 302,
+            'msg': '未登录',
+            'redirect': '/mgr/sign.html'}, 
+            status=302)
+    #该数据对象类似字典，所以检查是否有usertype类型为mgr的信息
+    if request.session['usertype'] != 'mgr' :
+        return JsonResponse({
+            'ret': 302,
+            'msg': '用户非mgr类型',
+            'redirect': '/mgr/sign.html'} ,
+            status=302)
+
     # 将请求参数统一放入request 的 params 属性中，方便后续处理
 
     # GET请求 参数在url中，同过request 对象的 GET属性获取
